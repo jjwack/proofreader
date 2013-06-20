@@ -12,7 +12,7 @@ class Project(models.Model):
     edited = models.TextField(blank=True, null=True)
 
     time_created = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField('are we waiting for Turk response', default=False) 
     submitted = models.BooleanField(default=False)
     time_submitted = models.DateTimeField(blank=True, null=True)
     time_received = models.DateTimeField(blank=True, null=True)
