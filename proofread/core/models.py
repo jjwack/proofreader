@@ -15,6 +15,8 @@ class Project(models.Model):
     active = models.BooleanField(default=False)
     submitted = models.BooleanField(default=False)
     time_submitted = models.DateTimeField(blank=True, null=True)
+    time_received = models.DateTimeField(blank=True, null=True)
+
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     turk_cost = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
