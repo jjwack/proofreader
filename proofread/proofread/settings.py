@@ -1,6 +1,6 @@
-# Django settings for proofread project.
+import os
 
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', True)
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
