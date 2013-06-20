@@ -2,8 +2,6 @@ from django.views.generic import TemplateView, View
 
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
-class MainPage(TemplateView):
-    template_name = "marketing/home.html"
 
 class ESLReceipt(TemplateView):
     template_name = "esl_receipt/response.html"
