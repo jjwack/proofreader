@@ -144,8 +144,8 @@ LOGGING = {
 DJANGO_ENV = os.environ.get('DJANGO_ENV', 'DEV')
 
 if DJANGO_ENV == "PRODUCTION":
-    from server_settings import *
+    from .server_settings import *
 else:
-    from local_settings import *
+    from .local_settings import *
 
 TEMPLATE_DEBUG = DEBUG
