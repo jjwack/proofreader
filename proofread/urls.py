@@ -8,9 +8,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', MainPage.as_view(), name="main"),
-    url(r'^dashboard/$', TemplateView.as_view(template_name="dashboard.html"), name="dashboard"),
 
-    url(r'^projects/', include('esl_receipt.urls')),
+    url(r'^projects/', include('projects.urls')),
+
+    # url(r'^account/', include('accounts.urls')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
