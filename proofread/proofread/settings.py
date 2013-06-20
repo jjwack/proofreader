@@ -1,35 +1,22 @@
 import os
 
-DEBUG = os.environ.get('DJANGO_DEBUG', True)
-TEMPLATE_DEBUG = DEBUG
+# set environment variables:
+# SECRET_KEY
+# DJANGO_DEBUG (True or False)
+# DJANGO_ENV ("DEV" or "PRODUCTION")
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Yi Han', 'yhan08@gmail.com'),
+    ('Ethan Soergel', 'esoergel@gmail.com'),
 )
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
-}
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -83,7 +70,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "xx"
+SECRET_KEY = os.environ.get("SECRET_KEY", "this is supposed to be a secret...")
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -120,10 +107,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -154,3 +139,13 @@ LOGGING = {
         },
     }
 }
+
+
+DJANGO_ENV = os.environ.get('DJANGO_ENV', 'DEV')
+
+if DJANGO_ENV == "PRODUCTION":
+    from server_settings import *
+else:
+    from local_settings import *
+
+TEMPLATE_DEBUG = DEBUG
