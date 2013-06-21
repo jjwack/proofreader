@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<dl>
+{% for project in project_list %}
+<dt>
+    {{ project.title }}
+</dt>
+<dd>
+    {{ project.unedited }}
+</dd>
+{% endfor %}
+</dl>
+{% endblock content %}
