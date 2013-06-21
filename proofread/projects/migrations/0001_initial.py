@@ -8,15 +8,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Project.time_received'
-        db.add_column(u'core_project', 'time_received',
-                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
-                      keep_default=False)
+        # Adding model 'Project'
+        db.create_table(u'projects_project', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, unique=True, null=True, blank=True)),
+            ('unedited', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('edited', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('time_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('active', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('submitted', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('time_submitted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('time_received', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=6, decimal_places=2, blank=True)),
+            ('turk_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=6, decimal_places=2, blank=True)),
+        ))
+        db.send_create_signal(u'projects', ['Project'])
 
 
     def backwards(self, orm):
-        # Deleting field 'Project.time_received'
-        db.delete_column(u'core_project', 'time_received')
+        # Deleting model 'Project'
+        db.delete_table(u'projects_project')
 
 
     models = {
@@ -56,7 +69,7 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'core.project': {
+        u'projects.project': {
             'Meta': {'object_name': 'Project'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'edited': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
@@ -74,4 +87,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['core']
+    complete_apps = ['projects']
