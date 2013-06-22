@@ -13,7 +13,6 @@ from .models import Project
 from .forms import ProjectForm
 
 
-
 class UserProjectMixin(LoginRequiredMixin):
     model = Project
 

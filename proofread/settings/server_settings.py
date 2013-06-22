@@ -18,4 +18,4 @@ DATABASES = {
     }
 }
 
-DEBUG = os.environ.get('DJANGO_DEBUG', False)
+DEBUG = os.environ.get('DJANGO_DEBUG', "False").lower() == "true"
