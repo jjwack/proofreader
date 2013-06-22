@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Marketing stuff</h1>
 <p> Buy our product! </p>
-<form action="{% url "pay_stripe" %}" method="POST">
+<form action="{% url "pay_stripe" %}" method="POST">{% csrf_token %}
   <script
     src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
     data-key="pk_test_kjnZxihVhQmCxF40zx3La3bC"
