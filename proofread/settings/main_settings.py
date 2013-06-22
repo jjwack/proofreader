@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'south',
     'core',
     'projects',
+    'accounts',
     'turkify',
 )
 
