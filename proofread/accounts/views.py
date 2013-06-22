@@ -1,5 +1,8 @@
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
+
+from settings.main_settings import STRIPE_SECRET_KEY
+
 import stripe
 
 class PayStripe(TemplateView):
@@ -10,7 +13,7 @@ class PayStripe(TemplateView):
         # Stripe server side code
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://manage.stripe.com/account
-        stripe.api_key = "sk_test_mkGsLqEW6SLnZa487HYfJVLf"
+        stripe.api_key = STRIPE_SECRET_KEY
 
         # Get the credit card details submitted by the form
         token = request.POST['stripeToken']
@@ -18,7 +21,7 @@ class PayStripe(TemplateView):
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
           charge = stripe.Charge.create(
-              amount=1000, # amount in cents, again
+              amount=5400, # amount in cents, again
               currency="usd",
               card=token,
               description="payinguser@example.com"
@@ -31,5 +34,5 @@ class PayStripe(TemplateView):
 
         # check the terminal output; self.request.POST is a dictionary
         # containing all the POST parameters.
-        stripe_token = self.request.POST['stripeToken']
+        #stripe_token = self.request.POST['stripeToken']
         return HttpResponseRedirect('/')
