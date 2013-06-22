@@ -12,15 +12,8 @@ pre {
 {% endblock %}
 
 {% block content %}
-<dl>
-{% for project in project_list %}
-<dt>
-    <a href="{% url "project_permalink" project.slug %}">{{ project.title }}</a>
-</dt>
-<dd>
-    <pre>{{ project.unedited }}</pre>
-</dd>
-{% endfor %}
-</dl>
+<h2>
+    {{ project.title }}
+</h2>
+<pre>{{ project.unedited }}</pre>
 {% endblock content %}
-

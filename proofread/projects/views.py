@@ -7,30 +7,26 @@ from django.views.generic import (
     CreateView,
     )
 
-from braces.views import JSONResponseMixin, AjaxResponseMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin, AjaxResponseMixin
 
 from .models import Project
 from .forms import ProjectForm
 
 
-class ProjectsList(ListView):
+
+class UserProjectMixin(LoginRequiredMixin):
     model = Project
 
-    def get_context_data(self, **kwargs):
-        "This is to print your context variables during testing ONLY"
-        context = super(ProjectsList, self).get_context_data(**kwargs)
-        print "#########################"
-        print "CONTEXT SENT TO TEMPLATE:"
-        for k, v in context.items():
-            print "  %s: %s\n" % (k, v)
-        print "DON'T FORGET TO REMOVE THIS MIXIN AFTER TESTING THE VIEW"
-        print "#########################"
-        return context
+    def get_queryset(self):
+        return self.request.user.project_set.all()
 
 
-class NewProject(CreateView):
+class ProjectsList(UserProjectMixin, ListView):
+    pass
+
+
+class NewProject(UserProjectMixin, CreateView):
     template_name = "projects/edit.html"
-    model = Project
     form_class = ProjectForm
 
     def get_success_url(self):
@@ -38,6 +34,7 @@ class NewProject(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        print form.instance.unedited
         return super(NewProject, self).form_valid(form)
 
 
@@ -51,5 +48,5 @@ class NewProjectAPI(JSONResponseMixin, AjaxResponseMixin, View):
         return self.render_json_response(context)
 
 
-class ProjectPermalink(DetailView):
+class ProjectPermalink(UserProjectMixin, DetailView):
     model = Project
