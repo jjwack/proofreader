@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^pay_stripe/', PayStripe.as_view(), name="pay_stripe"),
 
-    # url(r'^account/', include('accounts.urls')),
+    url(r'^account/', include('accounts.urls')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
