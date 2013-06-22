@@ -4,6 +4,7 @@ import os
 # SECRET_KEY
 # DJANGO_DEBUG (True or False)
 # DJANGO_ENV ("DEV" or "PRODUCTION")
+# STRIPE_MODE ("TEST" or "LIVE")   default to TEST
 
 ADMINS = (
     ('Yi Han', 'yhan08@gmail.com'),
@@ -156,3 +157,15 @@ else:
     from .local_settings import *
 
 TEMPLATE_DEBUG = DEBUG
+
+
+
+#os.environ.get('STRIPE_MODE', 'TEST') grabs from os.environ.get an environment variable called "STRIPE_MODE" and sets STRIPE_MODE to its value. 
+#if 'STRIPE_MODE' doesn't exist, sets STRIPE_MODE to 'TEST' by default
+
+if os.environ.get('STRIPE_MODE', 'TEST') == "LIVE":
+    STRIPE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY') #STRIPE_SECRET_KEY is just a Python variable
+else: 
+    STRIPE_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY')
+
+

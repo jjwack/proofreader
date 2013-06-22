@@ -5,6 +5,8 @@ from django.contrib.auth.forms import (
         AuthenticationForm, UserCreationForm, UserChangeForm
     )
 
+from settings.main_settings import STRIPE_SECRET_KEY
+
 import stripe
 
 def logout_view(request):
@@ -21,21 +23,20 @@ class PayStripe(TemplateView):
         # Stripe server side code
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://manage.stripe.com/account
-        stripe.api_key = "sk_test_mkGsLqEW6SLnZa487HYfJVLf"
+        stripe.api_key = STRIPE_SECRET_KEY
 
         # Get the credit card details submitted by the form
         token = request.POST['stripeToken']
 
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
-            charge = stripe.Charge.create(
-                amount=1000, # amount in cents, again
-                currency="usd",
-                card=token,
-                description="payinguser@example.com"
-            )
+          charge = stripe.Charge.create(
+              amount=5400, # amount in cents, again
+              currency="usd",
+              card=token,
+              description="payinguser@example.com"
+          )
         except stripe.CardError, e:
             # The card has been declined
             pass
-
         return HttpResponseRedirect('/')
