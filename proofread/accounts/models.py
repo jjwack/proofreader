@@ -11,6 +11,7 @@ class UserAccount(AbstractUser):
         decimal_places=2,
         blank=True,
         null=True,
+        default=0,
     )
 
     def get_absolute_url(self):

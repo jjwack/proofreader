@@ -31,7 +31,7 @@
 					<a style="margin-left:10px;" type="button" class="pull-right btn btn-info" href="{% url "logout" %}">Log Out</a>
 					<ul class="nav pull-right">
 						<li><a href="{% url "user_home" %}">{{ user.username }}</a></li>
-						<li><a href="{% url "pay_stripe" %}">Balance: $5</a></li>
+						<li><a href="{% url "user_home" %}">Balance: ${{ user.balance }}</a></li>
 					</ul>
 					{% else %}
 					<p class="pull-right">

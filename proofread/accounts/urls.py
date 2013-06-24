@@ -12,7 +12,7 @@ from .views import PayStripe
 
 urlpatterns = patterns('',
     # Do something better with this view, it's just a placeholder
-    url(r'^$', TemplateView.as_view(template_name="main.html"), name="user_home"),
+    url(r'^$', TemplateView.as_view(template_name="accounts/home.html"), name="user_home"),
 
     url(r'^pay_stripe/?$', PayStripe.as_view(), name="pay_stripe"),
     # url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'accounts/login.html'}, name="login"),
