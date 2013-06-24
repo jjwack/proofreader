@@ -113,7 +113,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
+    'registration',
     'core',
+    'accounts',
     'projects',
     'accounts',
     'turkify',
@@ -148,6 +150,30 @@ LOGGING = {
     }
 }
 
+##########
+# Extras #
+##########
+
+AUTH_USER_MODEL = "accounts.UserAccount"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"  # set to user home, also in accounts/models
+LOGOUT_URL = "logout"
+
+# django-registration
+ACCOUNT_ACTIVATION_DAYS = 7 # one week to activate
+
+# mail
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get("GMAIL")
+EMAIL_HOST_PASSWORD = os.environ.get("GMAIL_PW")
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'Proofread <esoergel@gmail.com>'
+
+###############
+# Environment #
+###############
+
 
 DJANGO_ENV = os.environ.get('DJANGO_ENV', 'DEV')
 
@@ -160,12 +186,12 @@ TEMPLATE_DEBUG = DEBUG
 
 
 
-#os.environ.get('STRIPE_MODE', 'TEST') grabs from os.environ.get an environment variable called "STRIPE_MODE" and sets STRIPE_MODE to its value. 
+#os.environ.get('STRIPE_MODE', 'TEST') grabs from os.environ.get an environment variable called "STRIPE_MODE" and sets STRIPE_MODE to its value.
 #if 'STRIPE_MODE' doesn't exist, sets STRIPE_MODE to 'TEST' by default
 
 if os.environ.get('STRIPE_MODE', 'TEST') == "LIVE":
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY') #STRIPE_SECRET_KEY is just a Python variable
-else: 
+else:
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY')
 
 

@@ -1,0 +1,12 @@
+{% extends "simple.html" %}
+
+{% block header %}
+Activation Complete
+{% endblock %}
+
+{% block content %}
+<p>Thanks for signing up!</p>
+<a class="btn btn-primary pull-right" href="{% url "user_home" %}">
+    Get Started
+</a>
+{% endblock %}
