@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.forms import (
         AuthenticationForm, UserCreationForm, UserChangeForm
@@ -16,10 +17,9 @@ def logout_view(request):
 
 
 class PayStripe(TemplateView):
-    template_name = "main.html"
+    template_name = "accounts/home.html"
 
     def post(self, request, *args, **kwargs):
-        print self.request.POST
         # Stripe server side code
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://manage.stripe.com/account
@@ -39,4 +39,8 @@ class PayStripe(TemplateView):
         except stripe.CardError, e:
             # The card has been declined
             pass
-        return HttpResponseRedirect('/')
+
+        next = request.POST.get('next', reverse('user_home'))
+
+        return HttpResponse(charge, content_type="application/json")
+        return HttpResponseRedirect(next)

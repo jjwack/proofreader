@@ -14,7 +14,6 @@ from .forms import ProjectForm
 
 
 class UserProjectMixin(LoginRequiredMixin):
-    login_url = '/account/login/'
     model = Project
 
     def get_queryset(self):

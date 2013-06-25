@@ -1,0 +1,26 @@
+{% extends "simple.html" %}
+
+
+{% block header %}
+Log In
+{% endblock %}
+
+
+{% block content %}
+
+{% if form.errors %}
+
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="">
+{% csrf_token %}
+<input id="id_{{ form.username.html_name }}" name="{{ form.username.html_name }}" type="text" placeholder="{{ form.username.label }}" {% if form.username.value %} value="{{ form.username.value }}" {% endif %} />
+<input id="id_{{ form.password.html_name }}" name="{{ form.password.html_name }}" type="password" placeholder="{{ form.password.label }}" />
+
+
+<button class="btn btn-primary pull-right" type="submit">Log In</button>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

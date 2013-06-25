@@ -1,0 +1,6 @@
+Proofread Me
+
+Click the link below to finish creating an account.
+{% url "registration_activate" {{ activation_key }} %}
+
+Your registration will expire in {{ expiration_days }} days.
