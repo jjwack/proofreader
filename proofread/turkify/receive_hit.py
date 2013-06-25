@@ -51,8 +51,8 @@ for hit in hits:
                 print "%s" % (value)
 
 
-            for key, value in question_form_answer.fields:
-                print "%s: %s" % (key,value)
+            #for key, value in question_form_answer.fields:
+            #    print "%s: %s" % (key,value)
         mtc.approve_assignment(assignment.AssignmentId)
         print "--------------------"
     mtc.disable_hit(hit.HITId)
