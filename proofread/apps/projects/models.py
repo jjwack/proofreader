@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 
+
 class Project(models.Model):
     user = models.ForeignKey( get_user_model() )
     title = models.CharField(max_length=255, blank=True, null=True)
@@ -15,8 +16,10 @@ class Project(models.Model):
     active = models.BooleanField(default=False,
         help_text="are we waiting for Turk response?")
     submitted = models.BooleanField(default=False)
-    time_submitted = models.DateTimeField(blank=True, null=True)
-    time_received = models.DateTimeField(blank=True, null=True)
+    time_submitted = models.DateTimeField(blank=True, null=True,
+        help_text="time when the user submitted this project")
+    time_received = models.DateTimeField(blank=True, null=True,
+        help_text="time we received a viable correction from turk")
 
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     turk_cost = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
@@ -32,6 +35,12 @@ class Project(models.Model):
         self.active = True
         self.submitted = True
         self.time_submitted = datetime.now()
+        self.save()
+
+    def receive_from_turk(self, edited):
+        self.active = False
+        self.edited = edited
+        self.time_received = datetime.now()
         self.save()
 
     def __unicode__(self):
