@@ -1,6 +1,7 @@
 Django==1.5.1
 South==0.8.1
 argparse==1.2.1
+boto==2.9.6
 django-braces==1.0.0
 requests==0.13.2
 stripe==1.9.1
