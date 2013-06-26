@@ -10,6 +10,10 @@ from settings.main_settings import STRIPE_SECRET_KEY
 
 import stripe
 
+# https://stripe.com/docs/checkout
+# https://stripe.com/docs/checkout/guides/flask
+
+
 def logout_view(request):
     next = request.REQUEST.get('next', '/')
     logout(request)
