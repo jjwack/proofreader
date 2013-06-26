@@ -4,20 +4,33 @@ from boto.mturk.question import QuestionContent,Question,QuestionForm,Overview,A
 ACCESS_ID ='AKIAITMHLQDVTLTSK6PA'
 SECRET_KEY = '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'
 HOST = 'mechanicalturk.sandbox.amazonaws.com'
- 
 
-def create_connection():
+#def create_connection():
+
+ #   global mtc #if you're setting 
+ #   mtc = MTurkConnection(aws_access_key_id=ACCESS_ID,
+ #                          aws_secret_access_key=SECRET_KEY,
+ #                           host=HOST)
+ #   return mtc
+
+def get_account_balance():
     mtc = MTurkConnection(aws_access_key_id=ACCESS_ID,
                             aws_secret_access_key=SECRET_KEY,
                             host=HOST)
-    return mtc
-
-def get_account_balance(mtc):
     return mtc.get_account_balance()
 
 #returns the hit ID
-def new_edit_task(mtc, uneditted, assignments):
+def new_edit_task(uneditted, assignments):
+    #global mtc # in this function, when I talk about mtc, I'm talking about the global mtc!
+    #try:
+        #check to see if mtc already exists
+    #except:
+        # if mtc doesn't exist
     
+    mtc = MTurkConnection(aws_access_key_id=ACCESS_ID,
+                            aws_secret_access_key=SECRET_KEY,
+                            host=HOST)
+
  
     title = 'Proofread a non-native English speaker\'s writing'
     description = 'Correct grammatical and word choice errors in the following email'
