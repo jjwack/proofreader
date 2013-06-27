@@ -1,0 +1,16 @@
+pre {
+    border: none;
+    background: inherit;
+    font: inherit;
+}
+.hero-unit {
+    padding: 30px 60px;
+}
+.hero-unit h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+.project-version h2 {
+    text-align: center;
+    border-bottom: 1px solid #bbb;
+}

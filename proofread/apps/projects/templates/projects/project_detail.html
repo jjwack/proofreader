@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 
-{% block css %}
-{{ block.super }}
-<style>
-pre {
-	border: inherit;
-	background: inherit;
-	font: inherit;
-}
-</style>
-{% endblock %}
 
 {% block content %}
-<h2>
-    {{ project.title }}
-</h2>
-<pre>{{ project.unedited }}</pre>
+<div class="hero-unit">
+  <h1 class="text-center">{{ project.title }}</h1>
+</div>
+
+<div class="container">
+<div class="row row-fluid">
+
+{# Unedited Text #}
+  <div class="project-version span6">
+    <h2>Unedited Version</h2>
+    <pre>{{ project.unedited }}</pre>
+  </div>
+
+{# Edited Text #}
+  <div class="project-version span6">
+    <h2>Edited Version</h2>
+    {% if project.edited %}
+      <pre>{{ project.edited }}</pre>
+    {% else %}
+    <br /><br /><br />
+      <p class="text-center">Your edits have not come back yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+</div>
+
 {% endblock content %}

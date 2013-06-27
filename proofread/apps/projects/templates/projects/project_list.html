@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 
-{% block css %}
-{{ block.super }}
-<style>
-pre {
-	border: inherit;
-	background: inherit;
-	font: inherit;
-}
-</style>
-{% endblock %}
 
 {% block content %}
-<dl>
-{% for project in project_list %}
-<dt>
-    <a href="{% url "project_permalink" project.slug %}">{{ project.title }}</a>
-</dt>
-<dd>
-    <pre>{{ project.unedited }}</pre>
-</dd>
-{% endfor %}
-</dl>
+
+<div class="hero-unit">
+  <h1>Projects</h1>
+  <a class="btn btn-success btn-large"href="{% url "new_project" %}">New Project</a>
+</div>
+
+{% if project_list.count %}
+  <dl>
+  {% for project in project_list %}
+    <dt>
+      <a href="{% url "project_permalink" project.slug %}">
+        <h3>{{ project.title }}</h3>
+      </a>
+    </dt>
+    <dd>
+      <pre>{{ project.unedited }}</pre>
+    </dd>
+  {% endfor %}
+  </dl>
+{% else %}
+  <p>You don't have any projects yet</p>
+{% endif %}
+
+
 {% endblock content %}
 

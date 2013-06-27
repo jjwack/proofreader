@@ -14,9 +14,13 @@
 
 
 {% block content %}
+
+<div class="hero-unit">
+    <h1>New Project</h1>
+</div>
+
 <form id="project-form" method="POST" action=".">{% csrf_token %}
 	<fieldset>
-	<legend>Make New Project</legend>
 
 	<div class="control-group">
 		<label><strong>Project Name</strong></label>
