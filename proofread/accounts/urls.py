@@ -5,16 +5,17 @@ from django.views.generic.base import TemplateView
 from registration.backends.default.views import ActivationView
 
 from .registration_fixed import RegistrationView
-from .views import PayStripe
+from .views import PayStripe, AccountHome
 
 # a lot of this is taken from django-registration. check out the source for specifics:
 # https://bitbucket.org/ubernostrum/django-registration/src/8f242e35ef7c004e035e54b4bb093c32bf77c29f/registration/auth_urls.py?at=default
 
 urlpatterns = patterns('',
     # Do something better with this view, it's just a placeholder
-    url(r'^$', TemplateView.as_view(template_name="accounts/home.html"), name="user_home"),
+    url(r'^$', AccountHome.as_view(), name="user_home"),
 
     url(r'^pay_stripe/?$', PayStripe.as_view(), name="pay_stripe"),
+    url(r'^declined/?$', TemplateView.as_view(template_name="accounts/declined.html"), name="stripe_declined"),
     # url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'accounts/login.html'}, name="login"),
 
     url(r'^login/$', auth.views.login, {'template_name': 'registration/login.html'}, name='login'),

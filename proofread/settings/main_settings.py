@@ -191,5 +191,3 @@ if os.environ.get('STRIPE_MODE', 'TEST') == "LIVE":
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY') #STRIPE_SECRET_KEY is just a Python variable
 else:
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY')
-
-

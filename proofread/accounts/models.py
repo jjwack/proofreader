@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 # from django.utils.translation import ugettext_lazy as _
-
-# define a get_absolute_url() method on user that returns account home
+from django.core.urlresolvers import reverse
+from decimal import Decimal
 
 class UserAccount(AbstractUser):
     balance = models.DecimalField(
@@ -15,4 +15,9 @@ class UserAccount(AbstractUser):
     )
 
     def get_absolute_url(self):
-        return "/"
+        return reverse("user_home")
+
+    def add_dollars(self, dollars):
+        self.balance += Decimal(dollars)
+        self.save()
+

@@ -12,22 +12,48 @@
 {% block content %}
 <h1>Account Home</h1>
 
+{% if view.request.GET.accepted == "False" %}
+  <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Sorry, that transaction was declined.  Please try again.
+  </div>
+{% endif %}
 
-<p><button value="500" class="btn btn-primary pay-stripe">Add $5</button></p>
-<p><button value="1000" class="btn btn-primary pay-stripe">Add $10</button></p>
+{% if view.request.GET.accepted == "True" %}
+  <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Your transaction was approved!
+  </div>
+{% endif %}
 
-<hr />
-<div id="custom-alert" class="hidden alert alert-error">
-    <button type="button" class="close" id="custom-alert-dismss">&times;</button>
-    You can only enter a number
-</div>
-<p>
-    <label>Custom Amount:</label>
-    <input id="custom-amt" type="number" min="10" step="1" /><br />
-    <button id="custom-btn" class="btn btn-primary pay-stripe">
-        Add Custom Amount
-    </button>
-</p>
+<h4>
+  You have ${{ user.balance|floatformat:2 }} in your account.
+</h4>
+
+<form action="{% url "pay_stripe" %}" method="POST">{% csrf_token %}
+  {% if view.request.GET.amt %}
+    <p>
+      <button value="{{view.request.GET.amt}}" id="request-amt" class="btn btn-primary pay-stripe">
+        Add {{ view.request.GET.amt }} cents
+      </button>
+    </p>
+  {% endif %}
+  <p><button value="500" class="btn btn-primary pay-stripe">Add $5</button></p>
+  <p><button value="1000" class="btn btn-primary pay-stripe">Add $10</button></p>
+
+  <hr />
+  <div id="custom-alert" class="hidden alert alert-error">
+      <button type="button" class="close" id="custom-alert-dismss">&times;</button>
+      You can only enter a number
+  </div>
+  <p>
+      <label>Custom Amount:</label>
+      <input id="custom-amt" type="number" min="10" step="1" /><br />
+      <button id="custom-btn" class="btn btn-primary pay-stripe">
+          Add Custom Amount
+      </button>
+  </p>
+</form>
 
 <!--
 <form action="{% url "pay_stripe" %}" method="POST">{% csrf_token %}
@@ -41,5 +67,3 @@
   </script>
 </form> -->
 {% endblock content %}
-
-
