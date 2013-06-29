@@ -22,6 +22,8 @@ class UserProjectMixin(LoginRequiredMixin):
     model = Project
 
     def get_queryset(self):
+        if self.request.user.is_staff:
+            return Project.objects.all()
         return self.request.user.project_set.all()
 
 

@@ -28,3 +28,6 @@ footer {
 footer hr {
     border-color: #ccc;
 }
+textarea {
+    width: 100%;
+}

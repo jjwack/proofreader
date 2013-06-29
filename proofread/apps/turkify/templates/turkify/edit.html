@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{ block.super }}
+<style>
+/*#project-form * {
+  width: auto;
+}
+#id_title {
+  width: 300px;
+}*/
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="hero-unit text-center">
+  <h1>Edit Project</h1>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <h3>Original Message</h3>
+    <hr />
+    <h4>{{ project.title }}</h4>
+    <pre>{{ project.unedited }}</pre>
+  </div>
+  <div class="span6">
+    <h3>My Edits</h3>
+    <hr />
+    <form id="project-form" method="POST" action=".">{% csrf_token %}
+      <fieldset>
+
+      <div class="control-group">
+        <label><strong>Project Name</strong></label>
+        {% if form.title.errors %}
+          <p class="text-error">{{ form.title.errors }}</p>
+        {% endif %}
+        {{ form.title }}
+      </div>
+
+      <div class="control-group">
+        <label><strong>Message</strong></label>
+        {% if form.unedited.errors %}
+          <p class="text-error">{{ form.unedited.errors }}</p>
+        {% endif %}
+        {{ form.unedited }}
+      </div>
+
+      <button type="submit" class="btn">Submit</button>
+      </fieldset>
+    </form>
+  </div>
+{% endblock content %}
