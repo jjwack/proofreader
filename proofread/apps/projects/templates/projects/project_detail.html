@@ -7,12 +7,13 @@
 </div>
 
 <div class="container">
-<div class="row row-fluid">
+<div class="row">
 
 {# Unedited Text #}
   <div class="project-version span6">
     <h2>Unedited Version</h2>
     <pre>{{ project.unedited }}</pre>
+    <p><small>Created {{ project.time_created }}</small></p>
   </div>
 
 {# Edited Text #}
@@ -20,6 +21,7 @@
     <h2>Edited Version</h2>
     {% if project.edited %}
       <pre>{{ project.edited }}</pre>
+      <p><small>Created {{ project.time_received }}</small></p>
     {% else %}
     <br /><br /><br />
       <p class="text-center">Your edits have not come back yet.</p>

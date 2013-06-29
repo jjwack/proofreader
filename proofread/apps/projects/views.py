@@ -14,6 +14,11 @@ from .forms import ProjectForm
 
 
 class UserProjectMixin(LoginRequiredMixin):
+    """
+    Parent mixin for all project views.  It restricts access to logged-in users,
+    and only returns projects specific to the user.  This should be the first
+    thing you inherit from in defining a project view.
+    """
     model = Project
 
     def get_queryset(self):

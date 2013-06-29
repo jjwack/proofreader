@@ -28,6 +28,8 @@ class Project(models.Model):
         """this is a hack, but it works"""
         if not self.pk:
             super(Project, self).save(*args, **kwargs)
+        if not self.title:
+            self.title = "Project %d" % self.pk
         self.slug = "%d-%s" % (self.pk, slugify(self.title) )
         super(Project, self).save(*args, **kwargs)
 

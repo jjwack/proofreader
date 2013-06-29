@@ -1,3 +1,6 @@
+.main {
+    min-height: 100%;
+}
 pre {
     border: none;
     background: inherit;
@@ -13,4 +16,15 @@ pre {
 .project-version h2 {
     text-align: center;
     border-bottom: 1px solid #bbb;
+}
+footer {
+    margin: 40px 0px 0px;
+    padding: 30px 0px;
+    text-align: center;
+    /*background-color: #16161D;*/
+    /*bottom: 0px;*/
+    width: 100%;
+}
+footer hr {
+    border-color: #ccc;
 }
