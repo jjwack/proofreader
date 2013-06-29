@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^account/', include('accounts.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^turk/', include('apps.turkify.urls')),
 )

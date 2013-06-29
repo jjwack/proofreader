@@ -38,7 +38,6 @@ class NewProject(UserProjectMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        print form.instance.unedited
         return super(NewProject, self).form_valid(form)
 
 

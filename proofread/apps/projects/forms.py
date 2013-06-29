@@ -5,9 +5,12 @@ from django import forms
 from .models import Project
 
 
+def get_time():
+    return datetime.strftime(datetime.now(), "%B %d, %Y %I:%M %p")
+
+
 class ProjectForm(forms.ModelForm):
-    now = datetime.strftime(datetime.now(), "%B %d, %Y %I:%M %p")
-    title = forms.CharField(initial=now)
+    title = forms.CharField(initial=get_time())
 
     class Meta:
         model = Project
