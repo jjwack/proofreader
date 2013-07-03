@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 
 from apps.projects.models import Project
 
+task_types = ('edit', 'review')
 
 class HIT(models.Model):
     project = models.ForeignKey(Project)
@@ -42,6 +43,7 @@ class Assignment(models.Model):
     time_received = models.DateTimeField(blank=True, null=True, auto_now_add=True,
         help_text="time we received a viable correction from turk")
     edited = models.TextField(blank=True, null=True)
+    chosen = models.BooleanField(default=False)
     objects = AssignmentManager()
 
     def incorporate_changes(self):

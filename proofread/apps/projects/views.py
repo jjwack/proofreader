@@ -23,8 +23,8 @@ class UserProjectMixin(LoginRequiredMixin):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Project.objects.all()
-        return self.request.user.project_set.all()
+            return Project.objects.all().order_by('-time_created')
+        return self.request.user.project_set.all().order_by('-time_created')
 
 
 class ProjectsList(UserProjectMixin, ListView):
