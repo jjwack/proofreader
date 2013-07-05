@@ -7,6 +7,9 @@ ACCESS_ID ='AKIAITMHLQDVTLTSK6PA'
 SECRET_KEY = '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'
 HOST = 'mechanicalturk.sandbox.amazonaws.com'
 
+# references
+# http://www.toforge.com/2011/05/boto-mturk-tutorial-fetch-results-and-pay-workers/
+# http://www.toforge.com/2011/04/boto-mturk-tutorial-create-hits/
 
 def get_all_reviewable_hits(mtc):
     """
