@@ -1,6 +1,6 @@
-from django.views.generic import FormView, UpdateView
+from django.views.generic import FormView, UpdateView, View
 from django.views.generic.detail import SingleObjectMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from apps.projects.models import Project
@@ -36,3 +36,25 @@ class EditProject(UpdateView):
         self.project = self.get_object()
         self.project.receive_from_turk(form.data['unedited'])
         return HttpResponseRedirect(self.get_success_url())
+
+
+#################
+# Utility Views #
+#################
+
+from django.views.generic.detail import SingleObjectMixin
+from .create_hit import make_edit_hit
+from .receive_hit import receive_assignments
+
+class SendProject(SingleObjectMixin, View):
+    model = Project
+
+    def get(self, request, *args, **kwargs):
+        project = self.get_object()
+        make_edit_hit(project)
+        return HttpResponse("Sent project %d (%s)" % (project.pk, project.title))
+
+class ReceiveAll(View):
+    def get(self, request, *args, **kwargs):
+        total = receive_assignments()
+        return HttpResponse("Received %d HITs" % total)

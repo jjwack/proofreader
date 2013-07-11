@@ -8,32 +8,59 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'HIT'
-        db.create_table(u'turkify_hit', (
+        # Adding model 'EditHit'
+        db.create_table(u'turkify_edithit', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
             ('hit_id', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=126, null=True, blank=True)),
-            ('time_submitted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('time_submitted', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
             ('number_of_assignments', self.gf('django.db.models.fields.IntegerField')()),
         ))
-        db.send_create_signal(u'turkify', ['HIT'])
+        db.send_create_signal(u'turkify', ['EditHit'])
 
-        # Adding model 'Assignment'
-        db.create_table(u'turkify_assignment', (
+        # Adding model 'EditAssignment'
+        db.create_table(u'turkify_editassignment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('hit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['turkify.HIT'])),
-            ('time_received', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('assignment_id', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=126, null=True, blank=True)),
+            ('time_received', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
+            ('edit_hit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['turkify.EditHit'])),
             ('edited', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('chosen', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
-        db.send_create_signal(u'turkify', ['Assignment'])
+        db.send_create_signal(u'turkify', ['EditAssignment'])
+
+        # Adding model 'ReviewHit'
+        db.create_table(u'turkify_reviewhit', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
+            ('hit_id', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=126, null=True, blank=True)),
+            ('time_submitted', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
+            ('number_of_assignments', self.gf('django.db.models.fields.IntegerField')()),
+        ))
+        db.send_create_signal(u'turkify', ['ReviewHit'])
+
+        # Adding model 'ReviewAssignment'
+        db.create_table(u'turkify_reviewassignment', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('assignment_id', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=126, null=True, blank=True)),
+            ('time_received', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
+            ('review_hit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['turkify.ReviewHit'])),
+        ))
+        db.send_create_signal(u'turkify', ['ReviewAssignment'])
 
 
     def backwards(self, orm):
-        # Deleting model 'HIT'
-        db.delete_table(u'turkify_hit')
+        # Deleting model 'EditHit'
+        db.delete_table(u'turkify_edithit')
 
-        # Deleting model 'Assignment'
-        db.delete_table(u'turkify_assignment')
+        # Deleting model 'EditAssignment'
+        db.delete_table(u'turkify_editassignment')
+
+        # Deleting model 'ReviewHit'
+        db.delete_table(u'turkify_reviewhit')
+
+        # Deleting model 'ReviewAssignment'
+        db.delete_table(u'turkify_reviewassignment')
 
 
     models = {
@@ -90,20 +117,37 @@ class Migration(SchemaMigration):
             'unedited': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.UserAccount']"})
         },
-        u'turkify.assignment': {
-            'Meta': {'object_name': 'Assignment'},
+        u'turkify.editassignment': {
+            'Meta': {'object_name': 'EditAssignment'},
+            'assignment_id': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '126', 'null': 'True', 'blank': 'True'}),
+            'chosen': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'edit_hit': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['turkify.EditHit']"}),
             'edited': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'hit': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['turkify.HIT']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'time_received': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
+            'time_received': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'})
         },
-        u'turkify.hit': {
-            'Meta': {'object_name': 'HIT'},
+        u'turkify.edithit': {
+            'Meta': {'object_name': 'EditHit'},
             'hit_id': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '126', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'number_of_assignments': ('django.db.models.fields.IntegerField', [], {}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'time_submitted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
+            'time_submitted': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'})
+        },
+        u'turkify.reviewassignment': {
+            'Meta': {'object_name': 'ReviewAssignment'},
+            'assignment_id': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '126', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'review_hit': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['turkify.ReviewHit']"}),
+            'time_received': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'})
+        },
+        u'turkify.reviewhit': {
+            'Meta': {'object_name': 'ReviewHit'},
+            'hit_id': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '126', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'number_of_assignments': ('django.db.models.fields.IntegerField', [], {}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
+            'time_submitted': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'})
         }
     }
 

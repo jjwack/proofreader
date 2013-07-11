@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import HIT, Assignment
+from .models import EditHit, EditAssignment
 
-admin.site.register(HIT)
-admin.site.register(Assignment)
+admin.site.register(EditHit)
+admin.site.register(EditAssignment)
