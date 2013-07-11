@@ -9,6 +9,7 @@ from django.views.generic import (
 
 from braces.views import LoginRequiredMixin, JSONResponseMixin, AjaxResponseMixin
 
+from apps.turkify.create_hit import make_edit_hit
 from .models import Project
 from .forms import ProjectForm
 
@@ -40,7 +41,9 @@ class NewProject(UserProjectMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(NewProject, self).form_valid(form)
+        response = super(NewProject, self).form_valid(form)
+        make_edit_hit(self.object)
+        return response
 
 
 class NewProjectAPI(JSONResponseMixin, AjaxResponseMixin, View):
